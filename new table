@@ -1,0 +1,16 @@
+CREATE TABLE new_work (person_id integer NOT NULL,
+                       job_id integer NOT NULL,
+                       FOREIGN key(person_id) REFERENCES person(ident),
+                       FOREIGN key(job_id) REFERENCES job(ident));
+
+INSERT INTO new_work
+SELECT person.ident AS person_id,
+       job.ident AS job_id
+FROM (person
+      JOIN work 
+      ON person.name = work.person)
+      
+JOIN job ON job.name = work.job;
+
+SELECT *
+FROM new_work;
